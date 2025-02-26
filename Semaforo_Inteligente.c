@@ -50,6 +50,7 @@ void display() {
     ssd1306_init(&ssd, WIDTH, HEIGHT, false, ENDERECO, I2C_PORT);
     ssd1306_config(&ssd);
     ssd1306_send_data(&ssd);
+
     ssd1306_fill(&ssd, false);
     ssd1306_send_data(&ssd);
 }
@@ -57,80 +58,74 @@ void display() {
 void contador1() {
     char buffer[10];
 
-    // Inicia LED e mensagem antes do som
-    state(1, 0, 0);
-    ssd1306_fill(&ssd, false);
-    ssd1306_draw_string(&ssd, "Sinal vermelho", 10, 10);
-    ssd1306_draw_string(&ssd, "PARE", 54, 30);
-    ssd1306_send_data(&ssd);
-    
-    // Som do sinal vermelho
-    for (int q = 4; q >= 0; q--) {
-        tocar_buzzer(25, 175);
-        tocar_buzzer(2500, 175);
-    }
-
     for (int j = 30; j >= 0; j--) {
         snprintf(buffer, sizeof(buffer), "%d", j);
+        ssd1306_fill(&ssd, false);
+        ssd1306_draw_string(&ssd, "Sinal vermelho", 10, 10);
+        ssd1306_draw_string(&ssd, "PARE", 54, 30);
         ssd1306_draw_string(&ssd, buffer, 54, 55);
         ssd1306_send_data(&ssd);
+        state(1, 0, 0);
+
+        if (j == 30) {
+            for (int q = 4; q >= 0; q--) {
+                tocar_buzzer(25, 175);
+                tocar_buzzer(2500, 175);
+            }
+        }
         sleep_ms(1000);
     }
 }
 
 void contador2() {
     char buffer[10];
-    
-    // Inicia LED e mensagem antes do som
-    state(1, 1, 0);
-    ssd1306_fill(&ssd, false);
-    ssd1306_draw_string(&ssd, "Sinal amarelo", 10, 10);
-    ssd1306_draw_string(&ssd, "ALERTA", 48, 30);
-    ssd1306_send_data(&ssd);
-    
-    // Som do sinal amarelo
-    for (int q = 3; q >= 0; q--) {
-        tocar_buzzer(60, 50);
-        tocar_buzzer(2500, 50);
-    }
-    
+
     for (int j = 5; j >= 0; j--) {
         snprintf(buffer, sizeof(buffer), "%d", j);
+        ssd1306_fill(&ssd, false);
+        ssd1306_draw_string(&ssd, "Sinal amarelo", 10, 10);
+        ssd1306_draw_string(&ssd, "ALERTA", 48, 30);
         ssd1306_draw_string(&ssd, buffer, 54, 55);
         ssd1306_send_data(&ssd);
+        state(1, 1, 0);
+
+        if (j == 5) {
+            for (int q = 3; q >= 0; q--) {
+                tocar_buzzer(60, 50);
+                tocar_buzzer(2500, 50);
+            }
+        }
         sleep_ms(1000);
     }
 }
 
 void contador3() {
     char buffer[10];
-    
-    // Inicia LED e mensagem antes do som
-    state(0, 1, 0);
-    ssd1306_fill(&ssd, false);
-    ssd1306_draw_string(&ssd, "Sinal verde", 20, 10);
-    ssd1306_draw_string(&ssd, "PROSSIGA", 40, 30);
-    ssd1306_send_data(&ssd);
-    
-    // Som do sinal verde
-    tocar_buzzer(25, 120);
-    tocar_buzzer(35, 90);
-    tocar_buzzer(40, 90);
-    tocar_buzzer(45, 90);
-    tocar_buzzer(50, 90);
-    tocar_buzzer(55, 90);
-    tocar_buzzer(60, 90);
-    tocar_buzzer(65, 90);
-    tocar_buzzer(70, 90);
-    tocar_buzzer(75, 90);
-    tocar_buzzer(80, 90);
-    tocar_buzzer(85, 90);
-    tocar_buzzer(90, 90);
-    
+
     for (int j = 30; j >= 0; j--) {
         snprintf(buffer, sizeof(buffer), "%d", j);
+        ssd1306_fill(&ssd, false);
+        ssd1306_draw_string(&ssd, "Sinal verde", 20, 10);
+        ssd1306_draw_string(&ssd, "PROSSIGA", 40, 30);
         ssd1306_draw_string(&ssd, buffer, 54, 55);
         ssd1306_send_data(&ssd);
+        state(0, 1, 0);
+
+        if (j == 30) {
+            tocar_buzzer(25, 120);
+            tocar_buzzer(35, 90);
+            tocar_buzzer(40, 90);
+            tocar_buzzer(45, 90);
+            tocar_buzzer(50, 90);
+            tocar_buzzer(55, 90);
+            tocar_buzzer(60, 90);
+            tocar_buzzer(65, 90);
+            tocar_buzzer(70, 90);
+            tocar_buzzer(75, 90);
+            tocar_buzzer(80, 90);
+            tocar_buzzer(85, 90);
+            tocar_buzzer(90, 90);
+        }
         sleep_ms(1000);
     }
 }
